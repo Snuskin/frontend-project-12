@@ -21,6 +21,8 @@
   "homepage": "https://github.com/Snuskin/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6",
-    "react-scripts": "^5.0.1"
+    "formik": "^2.2.9",
+    "react-scripts": "^5.0.1",
+    "yup": "^1.0.2"
   }
 }

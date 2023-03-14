@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.input {
+  appearance: none;
+  background-color: none;
+  border: 1px solid rgba(56, 168, 224, 1);
+  line-height: 0;
+  font-size: 17px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  border-radius: 60px;
+  color: rgba(56, 168, 224, 1);
+  font-weight: 100;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.btn {
+  position: relative;
+  padding: 24px 64px;
+  border-radius: 100vw;
+  background-color: rgba(56, 168, 224, 1);
+  border-color: blue;
+  font-family:serif;
+  color: #fafafa;
+  border: solid 1px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  filter: brightness(0.9);
+}
