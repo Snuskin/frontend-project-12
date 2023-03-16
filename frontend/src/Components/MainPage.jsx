@@ -20,16 +20,16 @@ const getAuthHeader = () => {
     
     const fetchContent = async () => {
       const { data } = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
-      console.log(content)
       setContent(data) && navigate('/login')
     };
 
     fetchContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
     <div>
-      
+    <p>{content}</p>
       Main Page
       <h1>HELLO MAZAFAKA</h1>
     </div>
