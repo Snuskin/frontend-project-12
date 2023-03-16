@@ -15,14 +15,12 @@ const getAuthHeader = () => {
 
  const MainPage = () => {
   const [content, setContent] = useState('');
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   navigate('/login')
-  // }, [])
+  
   useEffect(() => {
+    const navigate = useNavigate();
     const fetchContent = async () => {
       const { data } = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
-      console.log(data)
+      console.log(content)
       setContent(data) && navigate('/login')
     };
 
