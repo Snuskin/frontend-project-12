@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
 const MainRoute = ({ children }) => {
   const auth = useAuth();
   const location = useLocation()
-  console.log({from: location })
   return (
     auth.loggedIn ? children : <Navigate to="/login" state={{from: location }} />
   );
