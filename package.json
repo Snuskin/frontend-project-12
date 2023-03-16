@@ -4,10 +4,10 @@
   "description": "[![Actions Status](https://github.com/Snuskin/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Snuskin/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
-    "start": "npx start-server -s ./frontend/build",
     "build": "npm run build --prefix frontend",
-    "postinstall": "cd frontend && npm ci",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "start-server -s ./frontend/build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd frontend && npm ci"
   },
   "repository": {
     "type": "git",
