@@ -1,8 +1,8 @@
 install:
 	npm ci
 
-start:
-	npx start-server & npm -C frontend start
+start-backend:
+  npx start-server -s ./frontend/build
 
 build:
 	npm build

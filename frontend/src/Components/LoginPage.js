@@ -1,11 +1,11 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import welcomeImg from './../images/p.jpg'; 
 import useAuth from '../hooks/index.jsx';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import routes from '../api/routes/routes';
+import routes from '../routes';
 const SignupForm = () => {
 
   const auth = useAuth();
@@ -35,20 +35,18 @@ const SignupForm = () => {
     onSubmit: async (values) => {
       console.log(values);
       setAuthFailed(false)
-      
       try {
-        console.log(location.state)
-        console.log(routes.loginPath())
         const res = await axios.post(routes.loginPath(), values);
-        console.log(res.data)
         localStorage.setItem('userId', JSON.stringify(res.data));
-        auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
-        
-        navigate(from);
+        auth.logIn();
+        console.log(from.pathname)
+        navigate(from.pathname, { replace: true });
       } catch (err) {
+        console.log(err)
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
+          console.log(err)
           setAuthFailed(true);
           inputRef.current.select();
           return;
@@ -95,12 +93,12 @@ const SignupForm = () => {
         style={{marginBottom: '2em'}}
         className='username input'
       />
-
+      {authFailed ? (<p style={{color: 'red'}} >Неверные имя пользователя или пароль</p>) : null}
       {formik.touched.password && formik.errors.password ? (
         <div>{formik.errors.password}</div>
       ) : null}
 
-      <button type="submit" className='btn' style={{marginTop: '5em', fontSize: '20px'}}>Войти</button>
+      <button type="submit" className='btn' style={{marginTop: '2em', fontSize: '20px'}}>Войти</button>
     </form>
     </div>
     </div>
