@@ -3,11 +3,12 @@ import { NotFound } from './Components/Pages.jsx';
 import MainPage from './Components/MainPage.jsx';
 import {Login} from './Components/LoginPage.js';
 import AuthContext from './contexts/index.jsx';
+import axios from 'axios';
+import routes from './routes.js';
 import React, { useState } from 'react';
-import useAuth from './hooks/index.jsx';
+
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
-
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
     localStorage.removeItem('userId');
@@ -20,12 +21,24 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+const getAuthHeader = () => {
+  const userId = JSON.parse(localStorage.getItem('userId'));
+  if (userId && userId.token) {
+    return { Authorization: `Bearer ${userId.token}` };
+  }
 
+  return {};
+};
+const fetchContent = async () => {
+  const { data } = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
+  return data
+};
 const MainRoute = ({ children }) => {
-  const auth = useAuth();
+
   const location = useLocation()
+  const data = fetchContent()
   return (
-    auth.loggedIn ? children : <Navigate to="/login" state={{from: location }} />
+    data ? children : <Navigate to="/login" state={{from: location }} />
   );
 };
 const App = () => {

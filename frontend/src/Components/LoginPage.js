@@ -6,8 +6,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import routes from '../routes';
-const SignupForm = () => {
 
+const SignupForm = () => {
+  console.log(localStorage.getItem('userId'))
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
@@ -33,20 +34,16 @@ const SignupForm = () => {
         .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
     }),
     onSubmit: async (values) => {
-      console.log(values);
       setAuthFailed(false)
       try {
         const res = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         const { from } = location.state || { from: { pathname: '/' } };
         auth.logIn();
-        console.log(from.pathname)
         navigate(from.pathname, { replace: true });
       } catch (err) {
-        console.log(err)
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
-          console.log(err)
           setAuthFailed(true);
           inputRef.current.select();
           return;
