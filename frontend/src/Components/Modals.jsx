@@ -117,7 +117,8 @@ const Modal = () => {
             </div>
             <div className="modal-body">
                 <form onSubmit={(e) => {sendNewChannel(e); dispatch(closeModal())}} id='add-modal-form' className="modal-form" action="">
-                    <input name='channelName' type="text" />
+                    <input name='channelName' id="channelName" type="text" />
+                    <label class="visually-hidden" htmlFor="channelName">Имя канала</label>
                     <div className="modal-btns">
                         <button type="button" onClick={() => {dispatch(closeModal());}} className="cancel-btn">{t('modals.addChannel.cancelBtn')}</button>
                         <button type="submit" className="commit-btn">{t('modals.addChannel.confirmBtn')}</button>
@@ -136,7 +137,7 @@ const Modal = () => {
                     <div className="modal-btns">
                         <button type="button" onClick={() => dispatch(closeModal())} className="cancel-btn">{t('modals.removeChannel.cancelBtn')}</button>
                         <ToastContainer />
-                        <button type="submit" onClick={() => {sendRemovingChannel(extra); dispatch(closeModal())}} className="commit-btn">{t('modals.removeChannel.confirmBtn')}</button>
+                        <button type="submit" onClick={() => {sendRemovingChannel(extra); dispatch(closeModal())}} className="commit-btn btn-danger">{t('modals.removeChannel.confirmBtn')}</button>
                     </div>
             </div>
             </>
@@ -149,6 +150,7 @@ const Modal = () => {
             <div className="modal-body">
                 <form onSubmit={(e) => {renderRenamedChannel(e, extra); dispatch(closeModal())}} id='add-modal-form' className="modal-form" action="">
                     <input name='channelName' type="text" />
+                    <label class="visually-hidden" htmlFor="channelName">Имя канала</label>
                     <div className="modal-btns">
                         <button type="button" onClick={() => dispatch(closeModal())} className="cancel-btn">{t('modals.renameChannel.cancelBtn')}</button>
                         <ToastContainer />

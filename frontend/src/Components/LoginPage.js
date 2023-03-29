@@ -28,12 +28,9 @@ const LoginForm = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
+        .required(),
         password: Yup.string()
-        .required('No password provided.') 
-        .min(5, 'Password is too short - should be 8 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+        .required() 
     }),
     onSubmit: async (values) => {
       setAuthFailed(false)
@@ -56,6 +53,12 @@ const LoginForm = () => {
   });
 
   return (
+    <div>
+    <nav className='chat-navbar'>
+    <div className='container'>
+    <a href="/" target='_blank'>{t("mainPage.header.chatLink")}</a>
+    </div>
+  </nav>
     <div style={{marginTop: '20vh', marginLeft: '15vw', marginBottom: '10vh', width:'70vw', height: '50vh', display: 'flex', justifyContent: 'space-around', alignItems: "center" }}>
     <div>
     <img style={{width:'30vw', height: '50vh'}} src={welcomeImg} alt='' ></img>
@@ -101,6 +104,7 @@ const LoginForm = () => {
     </form>
     </div>
     <div><p>{t("loginPage.noAccount")}</p><a href='/signup'>{t("loginPage.register")}</a></div> 
+    </div>
     </div>
   );
 };

@@ -30,7 +30,8 @@ const SignupForm = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .max(15, `${t("signupPage.validationMessages.maxNameLength")}`)
+        .max(20, `${t("signupPage.validationMessages.maxNameLength")}`)
+        .min(3, `${t("signupPage.validationMessages.maxNameLength")}`)
         .required(`${t("signupPage.validationMessages.required")}`),
         password: Yup.string()
         .required(`${t("signupPage.validationMessages.required")}`) 

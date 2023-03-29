@@ -22,7 +22,7 @@
       },
       "mainPage": {
         "header": {
-            "chatLink": "SnusChat",
+            "chatLink": "Hexlet Chat",
             "logOutBtn": "Выйти"
         },
         "channelsListHeader": "Каналы",
@@ -32,28 +32,28 @@
         } 
       }, 
       "loginPage": {
-        "greeting": "Welcome to the club, Buddy!",
+        "greeting": "Войти",
         "autFailed": "Неверные имя пользователя или пароль",
         "noAccount": "Нет аккаунта?",
         "usernamePlaceholder": "Ваш ник",
         "pwdPlaceholder": "Пароль",
-        "register": "Зарегистрироваться",
-        "logIn": "Войти"
+        "register": "Регистрация",
+        "logIn": "Войти",
       },
       "signupPage": {
         "chatBtn": "SnusChat",
-        "usernamePlaceholder": "Ваш ник",
+        "usernamePlaceholder": "Имя пользователя",
         "pwdPlaceholder": "Пароль",
         "confirmpwdPlaceholder": "Подтверждение пароля",
-        "greeting": "Say your name, boooy!",
+        "greeting": "Регистрация",
         "signUpFailed": "Пользователь с таким именем уже существует",
         "signUp": "Зарегистрироваться",
         "validationMessages": {
-          "maxNameLength": "Максимум 15 букв",
+          "maxNameLength": "От 3 до 20 символов",
           "required": "Обязательное поле",
-          "minPwdLength": "Пароль должен содержать минимум 6 знаков",
+          "minPwdLength": "Не менее 6 символов",
           "onlyLatinaPwd": "Пароль должен содержать только латинские буквы",
-          'notMatches': "Пароли не совпавдают"
+          'notMatches': "Пароли должны совпадать"
         }
       },
       "toasters": {

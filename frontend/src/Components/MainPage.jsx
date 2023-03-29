@@ -138,7 +138,7 @@ const channelBtnClasses = (id) => cn({
     <div className='mainpage-container'>
       <nav className='chat-navbar'>
         <div className='container'>
-        <a href="https://github.com/Snuskin" target='_blank'>{t("mainPage.header.chatLink")}</a>
+        <a href="/" target='_blank'>{t("mainPage.header.chatLink")}</a>
         <button type='button' onClick={(e) => logOut(e)}>{t("mainPage.header.logOutBtn")}</button>
         </div>
       </nav>
@@ -147,6 +147,7 @@ const channelBtnClasses = (id) => cn({
           <div className='channels-list-header'>
             <b>{t("mainPage.channelsListHeader")}</b>
             <button type='button' onClick={() => {dispatch(openModal({isOpened: true, type: 'addChannel'}))}} className='add-channel-btn'>+</button>
+            <span class="visually-hidden">Управление каналом</span>
           </div>
             {renderInitChannels()}
         </div>
@@ -156,7 +157,7 @@ const channelBtnClasses = (id) => cn({
             {addMessages()}
           </div>
           <form noValidate onSubmit={handleSubmit} className='chat-form'>
-            <input ref={inputRef} type="text" onChange={(e) => setMessageText(filter.clean(e.target.value))} placeholder={t("mainPage.chatArea.inputPlaceholder")} className='chat-input'/>
+            <input ref={inputRef} type="text" aria-label="Новое сообщение" onChange={(e) => setMessageText(filter.clean(e.target.value))} placeholder={t("mainPage.chatArea.inputPlaceholder")} className='chat-input'/>
             <button onClick={onClear} className='submit-message-btn btn'  type='submit'>
             {t("mainPage.chatArea.submitBtn")}
             </button>
