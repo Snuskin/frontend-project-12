@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import welcomeImg from './../images/p.jpg'; 
+import signups from './../images/signup.jpg'; 
 import {useAuth} from '../hooks/index.jsx';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,14 +8,15 @@ import axios from 'axios';
 import routes from '../routes';
 import { useTranslation } from 'react-i18next';
 
-const LoginForm = () => {
+const SignupForm = () => {
 
   const { t } = useTranslation();
   const auth = useAuth();
-  const [authFailed, setAuthFailed] = useState(false);
+  const [signupFailed, setSignupFailed] = useState(false);
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
+
   useEffect(() => {
     const inputEl = inputRef.current
     inputEl.focus();
@@ -25,30 +26,35 @@ const LoginForm = () => {
     initialValues: {
       username: '',
       password: '',
+      confirmPassword: ''
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
+        .max(15, `${t("signupPage.validationMessages.maxNameLength")}`)
+        .required(`${t("signupPage.validationMessages.required")}`),
         password: Yup.string()
-        .required('No password provided.') 
-        .min(5, 'Password is too short - should be 8 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+        .required(`${t("signupPage.validationMessages.required")}`) 
+        .min(6, `${t("signupPage.validationMessages.minPwdLength")}`)
+        .matches(/[a-zA-Z]/, `${t("signupPage.validationMessages.onlyLatinaPwd")}`),
+        confirmPassword: Yup.string()
+        .required()
+        .oneOf([Yup.ref('password'), null], `${t("signupPage.validationMessages.notMatches")}`),
     }),
+    
     onSubmit: async (values) => {
-      setAuthFailed(false)
+
+    setSignupFailed(false)
       try {
-        const res = await axios.post(routes.loginPath(), values);
+        const res = await axios.post(routes.signUpPath(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         const { from } = location.state || { from: { pathname: '/' } };
         auth.logIn();
         navigate(from.pathname, { replace: true });
       } catch (err) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
-          inputRef.current.select();
-          return;
+        if (err.isAxiosError && err.response.status === 409) {
+            setSignupFailed(true);
+            inputRef.current.select();
         }
         throw err;
       }
@@ -56,16 +62,18 @@ const LoginForm = () => {
   });
 
   return (
+    <div>
+        <nav><a href="/">{t("signupPage.chatBtn")}</a></nav>
     <div style={{marginTop: '20vh', marginLeft: '15vw', marginBottom: '10vh', width:'70vw', height: '50vh', display: 'flex', justifyContent: 'space-around', alignItems: "center" }}>
     <div>
-    <img style={{width:'30vw', height: '50vh'}} src={welcomeImg} alt='' ></img>
+    <img style={{width:'30vw', height: '50vh'}} src={signups} alt='' ></img>
     </div>
     <div style={{  display: 'flex', justifyContent: 'space-around', flexDirection: 'column', alignItems: "center" }}>
-      <h1 style={{marginBottom: '4em', color: 'rgba(56, 168, 224, 1)'}}>{t("loginPage.greeting")}</h1>
+      <h1 style={{marginBottom: '4em', color: 'rgba(56, 168, 224, 1)'}}>{t("signupPage.greeting")}</h1>
     <form style={{margin: 0, height: '50%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: "center" }} onSubmit={formik.handleSubmit}>
       <label htmlFor="username" ></label>
       <input
-      placeholder={t("loginPage.usernamePlaceholder")}
+      placeholder={t("signupPage.usernamePlaceholder")}
         id="username"
         name="username"
         type="text"
@@ -82,7 +90,7 @@ const LoginForm = () => {
 
       <label htmlFor="password"></label>
       <input
-      placeholder={t("loginPage.pwdPlaceholder")}
+      placeholder={t("signupPage.pwdPlaceholder")}
         id="password"
         name="password"
         type="password"
@@ -92,17 +100,31 @@ const LoginForm = () => {
         style={{marginBottom: '2em'}}
         className='username input'
       />
-      {authFailed ? (<p style={{color: 'red'}}>{t("loginPage.autFailed")}</p>) : null}
+      <label htmlFor="confirmPassword"></label>
+      <input
+      placeholder={t("signupPage.confirmpwdPlaceholder")}
+        id="confirmPassword"
+        name="confirmPassword"
+        type="password"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.confirmPassword}
+        style={{marginBottom: '2em'}}
+        className='username input'
+      />
+      {signupFailed ? (<p style={{color: 'red'}} >{t("signupPage.signUpFailed")}</p>) : null}
       {formik.touched.password && formik.errors.password ? (
         <div>{formik.errors.password}</div>
       ) : null}
-
-      <button type="submit" className='btn' style={{marginTop: '2em', fontSize: '20px'}}>{t("loginPage.logIn")}</button>
+    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+        <div>{formik.errors.confirmPassword}</div>
+      ) : null}
+      <button type="submit" className='btn' style={{marginTop: '2em', fontSize: '20px'}}>{t("signupPage.signUp")}</button>
     </form>
     </div>
-    <div><p>{t("loginPage.noAccount")}</p><a href='/signup'>{t("loginPage.register")}</a></div> 
+    </div>
     </div>
   );
 };
 
-export const Login = () => LoginForm();
+export const Signup = () => SignupForm();
