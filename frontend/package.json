@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://127.0.0.1:5001",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@rollbar/react": "^0.11.1",
@@ -12,12 +12,11 @@
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
     "classnames": "^2.3.2",
+    "dotenv": "^16.0.3",
     "formik": "^2.2.9",
     "i18next": "^22.4.13",
     "jsonwebtoken": "^9.0.0",
     "leo-profanity": "^1.7.0",
-    "lodash": "^4.17.21",
-    "lorem-ipsum": "^2.0.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
@@ -28,7 +27,8 @@
     "react-toastify": "^9.1.2",
     "rollbar": "^2.26.1",
     "socket.io-client": "^4.6.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

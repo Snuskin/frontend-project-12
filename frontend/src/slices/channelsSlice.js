@@ -1,48 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    channelsInfo: {
-        channels: [],
-        currentChannelId: null
-    },
-}
+  channels: [],
+  currentChannelId: null,
+};
 const channelsSlice = createSlice({
-name: 'channels',
- initialState,
+  name: "channels",
+  initialState,
 
-reducers: {
+  reducers: {
     setInitialChannels(state, action) {
-        const user = action.payload;
-        const channels = user.channels;
-        channels.forEach(element => state.channelsInfo.channels.push(element)); 
-        state.channelsInfo.currentChannelId = user.currentChannelId
+      const user = action.payload;
+      state.channels = user.channels;
+      state.currentChannelId = user.currentChannelId;
     },
     setCurrentChannel(state, action) {
-        state.channelsInfo.currentChannelId = action.payload
+      state.currentChannelId = action.payload;
     },
     addNewChannel(state, action) {
-        const channel = action.payload;
-        state.channelsInfo.channels.push({...channel, removable: true});
-        state.channelsInfo.currentChannelId = channel.id;
+      const channel = action.payload;
+      state.channels.push({ ...channel, removable: true });
+      state.currentChannelId = channel.id;
     },
     renameChannel(state, action) {
-        const id = action.payload.id;
-        const channelName = action.payload.name;
-        const newState = state.channelsInfo.channels;
-        newState.find(el => el.id === id).name = channelName;
-        state.channelsInfo.channels = newState
+      const id = action.payload.id;
+      const channelName = action.payload.name;
+      const channel = state.channels.find((el) => el.id === id);
+      channel.name = channelName;
     },
     removeChannel(state, action) {
-        const id = action.payload.id;
-        const lastofChannels = state.channelsInfo.channels.filter(channel =>  channel.id !== id)
-        state.channelsInfo.channels = lastofChannels
+      const id = action.payload.id;
+      const lastofChannels = state.channels.filter(
+        (channel) => channel.id !== id
+      );
+      state.channels = lastofChannels;
     },
-    resetChannelsReduser(state, action) {
-        return initialState
+    resetChannelsReduser() {
+      return initialState;
     },
-}
-})
+  },
+});
 
-export const {setInitialChannels, setCurrentChannel, addNewChannel, renameChannel, removeChannel, resetChannelsReduser} = channelsSlice.actions;
+export const {
+  setInitialChannels,
+  setCurrentChannel,
+  addNewChannel,
+  renameChannel,
+  removeChannel,
+  resetChannelsReduser,
+} = channelsSlice.actions;
 
 export default channelsSlice.reducer;
-

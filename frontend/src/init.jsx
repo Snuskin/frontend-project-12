@@ -1,15 +1,30 @@
-import store from "../slices/index";
-import { getMessages } from "../slices/messagesSlice";
+import App from "./App";
+import store from "./slices/index";
+import { getMessages } from "./slices/messagesSlice";
 import {
   addNewChannel,
   renameChannel,
   removeChannel,
   setCurrentChannel,
-} from "../slices/channelsSlice";
-import { socket } from "./index";
+} from "./slices/channelsSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export const socketEvents = () => {
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import ru from "./locales/ru/translation";
+import { socket } from "./sockets";
+const InitApp = () => {
+  i18n.use(initReactI18next).init({
+    fallbackLng: "ru",
+    resources: {
+      ru,
+    },
+    debug: true,
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+
   try {
     socket.on("newMessage", (payload) => {
       store.dispatch(getMessages(payload));
@@ -26,7 +41,6 @@ export const socketEvents = () => {
       store.dispatch(setCurrentChannel(1));
     });
   } catch (e) {
-    console.log(e);
     toast.error(`Ошибка соединения`, {
       position: "top-right",
       autoClose: 5000,
@@ -38,4 +52,6 @@ export const socketEvents = () => {
       theme: "dark",
     });
   }
+  return <App />;
 };
+export default InitApp;

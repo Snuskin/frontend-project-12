@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/Snuskin/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^1.1.6",
-    "@reduxjs/toolkit": "^1.9.3",
-    "formik": "^2.2.9",
-    "react-scripts": "^5.0.1",
-    "yup": "^1.0.2"
+    "@hexlet/chat-server": "^1.1.6"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "2.8.7"
   }
 }

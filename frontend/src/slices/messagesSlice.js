@@ -1,30 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {removeChannel} from './channelsSlice';
+import { createSlice } from "@reduxjs/toolkit";
+import { removeChannel, setInitialChannels } from "./channelsSlice";
 const initialState = {
-    messages: []
-}
+  messages: [],
+};
 const messagesSlice = createSlice({
-name: 'messages',
- initialState,
+  name: "messages",
+  initialState,
 
-reducers: {
+  reducers: {
     getMessages(state, action) {
-        const message = action.payload
-        state.messages.push(message)
+      const message = action.payload;
+      state.messages.push(message);
     },
-    extraReducers: (builder) => {
-    builder.addCase(removeChannel, (state, action) => {
+    resetMessagesReduser() {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(removeChannel, (state, action) => {
         const id = action.payload.id;
-        const cleanedMessages = state.messages.filter(message => message.channelId !== id)
-        state.messages = cleanedMessages
-    })
-    },
-    resetMessagesReduser(state, action) {
-        return initialState
-    },
-}
-})
+        const cleanedMessages = state.messages.filter(
+          (message) => message.channelId !== id
+        );
+        state.messages = cleanedMessages;
+      })
+      .addCase(setInitialChannels, (state, action) => {
+        state.messages = action.payload.messages;
+      });
+  },
+});
 
-export const {getMessages, resetMessagesReduser} = messagesSlice.actions;
+export const { getMessages, resetMessagesReduser } = messagesSlice.actions;
 
 export default messagesSlice.reducer;
