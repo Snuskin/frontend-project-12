@@ -112,7 +112,7 @@ const SignupForm = () => {
             }}
             onSubmit={formik.handleSubmit}
           >
-            <label htmlFor="username"></label>
+            <label htmlFor="username">Имя пользователя</label>
             <input
               placeholder={t("signupPage.usernamePlaceholder")}
               id="username"
@@ -129,7 +129,7 @@ const SignupForm = () => {
               <div>{formik.errors.username}</div>
             ) : null}
 
-            <label htmlFor="password"></label>
+            <label htmlFor="password">Пароль</label>
             <input
               placeholder={t("signupPage.pwdPlaceholder")}
               id="password"
@@ -141,7 +141,7 @@ const SignupForm = () => {
               style={{ marginBottom: "2em" }}
               className="username input"
             />
-            <label htmlFor="confirmPassword"></label>
+            <label htmlFor="confirmPassword">Подтвердите пароль</label>
             <input
               placeholder={t("signupPage.confirmpwdPlaceholder")}
               id="confirmPassword"

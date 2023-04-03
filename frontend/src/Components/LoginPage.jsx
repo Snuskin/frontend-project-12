@@ -100,7 +100,7 @@ const LoginForm = () => {
             }}
             onSubmit={formik.handleSubmit}
           >
-            <label htmlFor="username"></label>
+            <label htmlFor="username">Ваш ник</label>
             <input
               placeholder={t("loginPage.usernamePlaceholder")}
               id="username"
@@ -117,7 +117,7 @@ const LoginForm = () => {
               <div>{formik.errors.username}</div>
             ) : null}
 
-            <label htmlFor="password"></label>
+            <label htmlFor="password">Пароль</label>
             <input
               placeholder={t("loginPage.pwdPlaceholder")}
               id="password"
