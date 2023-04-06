@@ -1,27 +1,23 @@
 /* eslint eqeqeq: "off", curly: "error" */
 
 import {
-  setInitialChannels,
   setCurrentChannel,
   resetChannelsReduser,
 } from "../slices/channelsSlice";
 import { resetMessagesReduser } from "../slices/messagesSlice";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddChannelModal from "./Modals";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/index.jsx";
 import { emitNewMessage } from "../sockets/emits";
-import routes from "../routes.js";
 import cn from "classnames";
-import axios from "axios";
 import { openModal } from "../slices/modalsSlice";
 import arrow from "./../images/down-arrow.png";
 import { useTranslation } from "react-i18next";
 import filter from "leo-profanity";
 
 const sendNewMessage = (message, activeChannel) => {
-  console.log(message);
   const user = JSON.parse(localStorage.getItem("userId")).username;
   emitNewMessage(message, activeChannel, user);
 };
@@ -54,25 +50,6 @@ const MainPage = () => {
   const onClear = () => {
     inputRef.current.value = "";
   };
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const { data } = await axios.get(routes.usersPath(), {
-          headers: auth.getAuthHeader(),
-        });
-        dispatch(setInitialChannels(data));
-        auth.logIn();
-      } catch (err) {
-        if (err.isAxiosError && err.response.status === 401) {
-          navigate("/login");
-          return;
-        }
-      }
-    };
-    fetchContent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const addMessages = () => {
     return (

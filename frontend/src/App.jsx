@@ -15,7 +15,11 @@ import routes from "./routes.js";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { Provider, ErrorBoundary } from "@rollbar/react";
-import { Provider as StoreProvider, useDispatch } from "react-redux";
+import {
+  Provider as StoreProvider,
+  useDispatch,
+  useSelector,
+} from "react-redux";
 import store from "./slices/index.js";
 import { useAuth } from "./hooks/index";
 import { setInitialChannels } from "./slices/channelsSlice";
@@ -50,7 +54,6 @@ const AuthProvider = ({ children }) => {
 };
 
 const MainRoute = ({ children }) => {
-  console.log(children);
   const auth = useAuth();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -60,25 +63,33 @@ const MainRoute = ({ children }) => {
       const { data } = await axios.get(routes.usersPath(), {
         headers: auth.getAuthHeader(),
       });
-      return data;
+      if (data) {
+        console.log(data);
+        return data;
+      }
     } catch (e) {
       if (e.isAxiosError && e.response.status === 401) {
         return null;
       }
     }
   };
-
+  const userChannels = useSelector((state) => state.channels.channels);
   useEffect(() => {
-    fetchContent().then((data) => dispatch(setInitialChannels(data)));
+    const loggedInUser = localStorage.getItem("userId");
+    if (loggedInUser) {
+      fetchContent().then((data) => {
+        dispatch(setInitialChannels(data));
+      });
+    }
   }, []);
 
-  console.log(auth.loggedIn);
-  return auth.loggedIn ? (
+  return userChannels ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: location }} />
   );
 };
+
 const App = () => {
   return (
     <Provider config={rollbarConfig}>

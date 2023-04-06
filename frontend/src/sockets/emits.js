@@ -1,17 +1,58 @@
 import { socket } from "./index";
 import { toast } from "react-toastify";
 
-const showErrorToaster = () => {
-  return toast.error(`Ошибка соединения`, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-  });
+const showToaster = (status) => {
+  switch (status) {
+    case "add":
+      toast.success(`Канал создан`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      break;
+    case "rename":
+      toast.success(`Канал переименован`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      break;
+    case "remove":
+      toast.success(`Канал удалён`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      break;
+    case "error":
+      toast.error(`Ошибка соединения`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    default:
+      return `Unexpected toaster status: ${status}`;
+  }
 };
 
 const emitNewMessage = (message, activeChannel, username) => {
@@ -21,9 +62,8 @@ const emitNewMessage = (message, activeChannel, username) => {
       "newMessage",
       { body: message, channelId: activeChannel, username },
       (err, response) => {
-        console.log(response);
-        if (response.status === undefined || err) {
-          showErrorToaster();
+        if (!response || err) {
+          showToaster("error");
         }
       }
     );
@@ -31,16 +71,20 @@ const emitNewMessage = (message, activeChannel, username) => {
 
 const emitNewChannel = (name) => {
   socket.timeout(5000).emit("newChannel", { name: name }, (err, response) => {
-    if (response.status === undefined || err) {
-      showErrorToaster();
+    if (!response || err) {
+      showToaster("error");
+    } else {
+      showToaster("add");
     }
   });
 };
 
 const emitRemoveChannel = (extra) => {
   socket.timeout(5000).emit("removeChannel", { id: extra }, (err, response) => {
-    if (response.status === undefined || err) {
-      showErrorToaster();
+    if (!response || err) {
+      showToaster("error");
+    } else {
+      showToaster("remove");
     }
   });
 };
@@ -49,8 +93,10 @@ const emitRenameChannel = (id, name) => {
   socket
     .timeout(5000)
     .emit("renameChannel", { id: id, name: name }, (err, response) => {
-      if (response.status === undefined || err) {
-        showErrorToaster();
+      if (!response || err) {
+        showToaster("error");
+      } else {
+        showToaster("rename");
       }
     });
 };

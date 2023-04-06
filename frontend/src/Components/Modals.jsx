@@ -7,7 +7,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../slices/modalsSlice";
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import filter from "leo-profanity";
 
@@ -19,69 +19,13 @@ const Modal = () => {
   const isOpen = useSelector((state) => state.modals.isOpenend);
   const dispatch = useDispatch();
 
-  const showToaster = (status) => {
-    switch (status) {
-      case "add":
-        toast.success(`${t("toasters.added")}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        break;
-      case "rename":
-        toast.success(`${t("toasters.renamed")}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        break;
-      case "remove":
-        toast.success(`${t("toasters.removed")}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        break;
-      case "error":
-        toast.error(`${t("toasters.networkError")}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      default:
-        return `Unexpected toaster status: ${status}`;
-    }
-  };
-
   const sendNewChannel = (e) => {
     e.preventDefault();
     if (e.target.channelName.value.length > 2) {
       try {
         emitNewChannel(filter.clean(e.target.channelName.value));
-        showToaster("add");
       } catch (e) {
         console.log(e);
-        showToaster("error");
       }
     }
     dispatch(closeModal(false));
@@ -92,10 +36,8 @@ const Modal = () => {
     if (e.target.channelName.value.length > 2) {
       try {
         emitRenameChannel(id, filter.clean(e.target.channelName.value));
-        showToaster("rename");
       } catch (e) {
         console.log(e);
-        showToaster("error");
       }
     }
   };
@@ -103,10 +45,8 @@ const Modal = () => {
   const sendRemovingChannel = (extra) => {
     try {
       emitRemoveChannel(extra);
-      showToaster("remove");
     } catch (e) {
       console.log(e);
-      showToaster("error");
     }
   };
 
