@@ -73,7 +73,6 @@ const MainRoute = ({ children }) => {
       }
     }
   };
-  const userChannels = useSelector((state) => state.channels.channels);
   useEffect(() => {
     const loggedInUser = localStorage.getItem("userId");
     if (loggedInUser) {
@@ -82,8 +81,8 @@ const MainRoute = ({ children }) => {
       });
     }
   }, []);
-
-  return userChannels.length > 0 ? (
+  const loggedInUser = localStorage.getItem("userId");
+  return loggedInUser ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: location }} />

@@ -30,7 +30,6 @@ const LoginForm = () => {
       password: Yup.string().required(),
     }),
     onSubmit: async (values) => {
-      console.log(routes.loginPath());
       setAuthFailed(false);
       try {
         const res = await axios.post(routes.loginPath(), values);
