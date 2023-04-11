@@ -221,6 +221,7 @@ const MainPage = () => {
                 onClick={onClear}
                 className="submit-message-btn btn"
                 type="submit"
+                disabled = {messageText.length > 0 ? false : true}
               >
                 {t("mainPage.chatArea.submitBtn")}
               </button>
