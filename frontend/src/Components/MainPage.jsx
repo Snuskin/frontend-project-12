@@ -208,6 +208,7 @@ const MainPage = () => {
             <div className="picked-channel"></div>
             <div className="messages-area">{addMessages()}</div>
             <form noValidate onSubmit={handleSubmit} className="chat-form">
+              <div style={{display: "flex"}}>
               <input
                 ref={inputRef}
                 type="text"
@@ -223,6 +224,7 @@ const MainPage = () => {
               >
                 {t("mainPage.chatArea.submitBtn")}
               </button>
+              </div>
             </form>
           </div>
         </div>
