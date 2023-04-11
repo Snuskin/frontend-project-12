@@ -83,7 +83,7 @@ const MainRoute = ({ children }) => {
     }
   }, []);
 
-  return userChannels ? (
+  return userChannels.length > 0 ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: location }} />
