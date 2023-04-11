@@ -19,14 +19,12 @@ const InitApp = () => {
   });
   socket.on("newChannel", (payload) => {
     store.dispatch(addNewChannel(payload));
-    store.dispatch(setCurrentChannel(payload.id));
   });
   socket.on("renameChannel", (payload) => {
     store.dispatch(renameChannel(payload));
   });
   socket.on("removeChannel", (payload) => {
     store.dispatch(removeChannel(payload));
-    store.dispatch(setCurrentChannel(1));
   });
 
   const i18nInstace = i18n.createInstance();

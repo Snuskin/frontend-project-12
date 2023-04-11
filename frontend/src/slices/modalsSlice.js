@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign, no-unused-expressions */
+import { createSlice } from '@reduxjs/toolkit';
 
 const modalsSlice = createSlice({
-  name: "modals",
+  name: 'modals',
   initialState: {
     isOpenend: false,
     type: null,
@@ -12,9 +13,7 @@ const modalsSlice = createSlice({
     openModal(state, action) {
       state.isOpenend = true;
       state.type = action.payload.type;
-      action.payload.extra
-        ? (state.extra = action.payload.extra)
-        : (state.extra = null);
+      action.payload.extra ? (state.extra = action.payload.extra) : (state.extra = null);
     },
     closeModal(state) {
       state.isOpenend = false;

@@ -6,6 +6,7 @@ import {
 } from "../sockets/emits";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../slices/modalsSlice";
+import { setCurrentChannel } from "../slices/channelsSlice";
 import { useTranslation } from "react-i18next";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,16 +20,16 @@ const Modal = () => {
   const isOpen = useSelector((state) => state.modals.isOpenend);
   const dispatch = useDispatch();
 
-  const sendNewChannel = (e) => {
+  const sendNewChannel = async (e) =>  {
     e.preventDefault();
     if (e.target.channelName.value.length > 2) {
       try {
-        emitNewChannel(filter.clean(e.target.channelName.value));
-      } catch (e) {
-        console.log(e);
+     await emitNewChannel(filter.clean(e.target.channelName.value))
+     .then((id) => dispatch(setCurrentChannel(id)))
+      } catch (error) {
+        console.log(error);
       }
     }
-    dispatch(closeModal(false));
   };
 
   const renderRenamedChannel = (e, id) => {
@@ -36,8 +37,8 @@ const Modal = () => {
     if (e.target.channelName.value.length > 2) {
       try {
         emitRenameChannel(id, filter.clean(e.target.channelName.value));
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -45,6 +46,7 @@ const Modal = () => {
   const sendRemovingChannel = (extra) => {
     try {
       emitRemoveChannel(extra);
+      dispatch(setCurrentChannel(1))
     } catch (e) {
       console.log(e);
     }
