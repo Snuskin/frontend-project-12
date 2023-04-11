@@ -46,7 +46,10 @@ const MainPage = () => {
   };
 
   const inputRef = useRef(null);
-
+  useEffect(() => {
+    const inputEl = inputRef.current;
+    inputEl.focus();
+  }, []);
   const onClear = () => {
     inputRef.current.value = "";
   };

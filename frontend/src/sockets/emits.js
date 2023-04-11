@@ -65,10 +65,7 @@ const emitNewMessage = (message, activeChannel, username) => {
     .emit('newMessage', { body: message, channelId: activeChannel, username }, (err, response) => {
       if (!response || err) {
         showToaster('error');
-      } else {
-        console.log(response.data.id)
-        store.dispatch(setCurrentChannel(response.data.id))
-      }
+      } 
     });
 };
 
@@ -100,6 +97,8 @@ const emitRenameChannel = (id, name) => {
       showToaster('error');
     } else {
       showToaster('rename');
+      console.log(response.data.id)
+      store.dispatch(setCurrentChannel(response.data.id))
     }
   });
 };
