@@ -5,7 +5,7 @@ import {
   resetChannelsReduser,
 } from "../slices/channelsSlice";
 import { resetMessagesReduser } from "../slices/messagesSlice";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddChannelModal from "./Modals";
 import { useNavigate } from "react-router-dom";
