@@ -23,7 +23,5 @@
     "@hexlet/chat-server": "^1.1.6"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "2.8.7"
   }
 }
