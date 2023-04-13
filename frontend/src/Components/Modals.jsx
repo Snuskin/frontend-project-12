@@ -1,32 +1,35 @@
-import React from "react";
+/* eslint-disable no-shadow, consistent-return */
+/* eslint-disable */
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import filter from 'leo-profanity';
 import {
   emitNewChannel,
   emitRenameChannel,
   emitRemoveChannel,
-} from "../sockets/emits";
-import { useSelector, useDispatch } from "react-redux";
-import { closeModal } from "../slices/modalsSlice";
-import { setCurrentChannel } from "../slices/channelsSlice";
-import { useTranslation } from "react-i18next";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import filter from "leo-profanity";
+} from '../sockets/emits';
+import { closeModal } from '../slices/modalsSlice';
+import { setCurrentChannel } from '../slices/channelsSlice';
 
 const Modal = () => {
   const { t } = useTranslation();
-  filter.add(filter.getDictionary("ru"));
+  filter.add(filter.getDictionary('ru'));
   const type = useSelector((state) => state.modals.type);
   const extra = useSelector((state) => state.modals.extra);
   const isOpen = useSelector((state) => state.modals.isOpenend);
   const dispatch = useDispatch();
 
-  const sendNewChannel = async (e) =>  {
+  const sendNewChannel = async (e) => {
     e.preventDefault();
     if (e.target.channelName.value.length > 2) {
       try {
-     await emitNewChannel(filter.clean(e.target.channelName.value))
-     .then((id) => {
-      dispatch(setCurrentChannel(id))})
+        await emitNewChannel(filter.clean(e.target.channelName.value))
+          .then((id) => {
+            dispatch(setCurrentChannel(id));
+          });
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +50,7 @@ const Modal = () => {
   const sendRemovingChannel = (extra) => {
     try {
       emitRemoveChannel(extra);
-      dispatch(setCurrentChannel(1))
+      dispatch(setCurrentChannel(1));
     } catch (e) {
       console.log(e);
     }
@@ -55,11 +58,11 @@ const Modal = () => {
 
   const pickModal = (type, extra) => {
     switch (type) {
-      case "addChannel":
+      case 'addChannel':
         return (
           <>
             <div className="modal-header">
-              <div>{t("modals.addChannel.title")}</div>
+              <div>{t('modals.addChannel.title')}</div>
               <button
                 className="modal-close-btn"
                 onClick={() => dispatch(closeModal())}
@@ -89,21 +92,21 @@ const Modal = () => {
                     }}
                     className="cancel-btn"
                   >
-                    {t("modals.addChannel.cancelBtn")}
+                    {t('modals.addChannel.cancelBtn')}
                   </button>
                   <button type="submit" className="commit-btn">
-                    {t("modals.addChannel.confirmBtn")}
+                    {t('modals.addChannel.confirmBtn')}
                   </button>
                 </div>
               </form>
             </div>
           </>
         );
-      case "removeChannel":
+      case 'removeChannel':
         return (
           <>
             <div className="modal-header">
-              <div>{t("modals.removeChannel.title")}</div>
+              <div>{t('modals.removeChannel.title')}</div>
               <button
                 className="modal-close-btn"
                 onClick={() => dispatch(closeModal())}
@@ -112,14 +115,14 @@ const Modal = () => {
               </button>
             </div>
             <div className="modal-body">
-              <div>{t("modals.removeChannel.subTitle")}</div>
+              <div>{t('modals.removeChannel.subTitle')}</div>
               <div className="modal-btns">
                 <button
                   type="button"
                   onClick={() => dispatch(closeModal())}
                   className="cancel-btn"
                 >
-                  {t("modals.removeChannel.cancelBtn")}
+                  {t('modals.removeChannel.cancelBtn')}
                 </button>
                 <ToastContainer />
                 <button
@@ -130,17 +133,17 @@ const Modal = () => {
                   }}
                   className="commit-btn btn-danger"
                 >
-                  {t("modals.removeChannel.confirmBtn")}
+                  {t('modals.removeChannel.confirmBtn')}
                 </button>
               </div>
             </div>
           </>
         );
-      case "renameChannel":
+      case 'renameChannel':
         return (
           <>
             <div className="modal-header">
-              <div>{t("modals.renameChannel.title")}</div>
+              <div>{t('modals.renameChannel.title')}</div>
               <button
                 className="modal-close-btn"
                 onClick={() => dispatch(closeModal())}
@@ -168,11 +171,11 @@ const Modal = () => {
                     onClick={() => dispatch(closeModal())}
                     className="cancel-btn"
                   >
-                    {t("modals.renameChannel.cancelBtn")}
+                    {t('modals.renameChannel.cancelBtn')}
                   </button>
                   <ToastContainer />
                   <button type="submit" className="commit-btn">
-                    {t("modals.renameChannel.confirmBtn")}
+                    {t('modals.renameChannel.confirmBtn')}
                   </button>
                 </div>
               </form>
@@ -180,27 +183,24 @@ const Modal = () => {
           </>
         );
       default:
-        console.log(`Unexpected modal type: ${type}`)
+        console.log(`Unexpected modal type: ${type}`);
     }
-    return;
   };
 
-  const renderModal = (type, extra) => {
-    return (
-      <div
-        className="modal-content"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        {pickModal(type, extra)}
-      </div>
-    );
-  };
+  const renderModal = (type, extra) => (
+    <div
+      className="modal-content"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      {pickModal(type, extra)}
+    </div>
+  );
 
   return (
     <div
-      className={isOpen === true ? "modal active" : "modal"}
+      className={isOpen === true ? 'modal active' : 'modal'}
       onClick={() => dispatch(closeModal(false))}
     >
       {renderModal(type, extra)}
