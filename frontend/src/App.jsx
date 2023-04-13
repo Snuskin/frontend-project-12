@@ -5,7 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { NotFound } from "./Components/Pages";
+import { NotFound } from "./Components/ErrorPage";
 import MainPage from "./Components/MainPage";
 import { Login } from "./Components/LoginPage";
 import { Signup } from "./Components/SignupPage";

@@ -162,6 +162,7 @@ const MainPage = () => {
   const handleSubmit = (e) => {
     sendNewMessage(messageText, currentChannel);
     e.preventDefault();
+    setMessageText('')
   };
   const openCtxtMenu = (e) => {
     return cn("rename-remove-channel-container", {
