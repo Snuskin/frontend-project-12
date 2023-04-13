@@ -1,8 +1,6 @@
 /* eslint-disable consistent-return, no-console */
 import { toast } from 'react-toastify';
 import { socket } from './index';
-import store from '../slices/index';
-import { setCurrentChannel } from '../slices/channelsSlice';
 
 const showToaster = (status) => {
   switch (status) {
