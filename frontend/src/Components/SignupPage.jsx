@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import signups from "./../images/signup.jpg";
+import signups from "../images/signup.jpg";
 import { useAuth } from "../hooks/index.jsx";
 import { useFormik } from "formik";
 import * as Yup from "yup";

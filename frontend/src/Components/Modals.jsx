@@ -180,8 +180,9 @@ const Modal = () => {
           </>
         );
       default:
-        return;
+        console.log(`Unexpected modal type: ${type}`)
     }
+    return;
   };
 
   const renderModal = (type, extra) => {

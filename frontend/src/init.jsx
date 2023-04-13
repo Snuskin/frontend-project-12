@@ -4,8 +4,7 @@ import { getMessages } from "./slices/messagesSlice";
 import {
   addNewChannel,
   renameChannel,
-  removeChannel,
-  setCurrentChannel,
+  removeChannel
 } from "./slices/channelsSlice";
 import "react-toastify/dist/ReactToastify.css";
 import i18n from "i18next";

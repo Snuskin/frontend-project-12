@@ -13,7 +13,7 @@ import { useAuth } from "../hooks/index.jsx";
 import { emitNewMessage } from "../sockets/emits";
 import cn from "classnames";
 import { openModal } from "../slices/modalsSlice";
-import arrow from "./../images/down-arrow.png";
+import arrow from "../images/down-arrow.png";
 import { useTranslation } from "react-i18next";
 import filter from "leo-profanity";
 

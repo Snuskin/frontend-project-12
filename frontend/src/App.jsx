@@ -18,7 +18,6 @@ import { Provider, ErrorBoundary } from "@rollbar/react";
 import {
   Provider as StoreProvider,
   useDispatch,
-  useSelector,
 } from "react-redux";
 import store from "./slices/index.js";
 import { useAuth } from "./hooks/index";
