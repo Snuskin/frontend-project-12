@@ -158,8 +158,8 @@ const Modal = () => {
                 className="modal-form"
                 action=""
               >
-                <input name="channelName" type="text" />
-                <label className="visually-hidden" htmlFor="channelName">
+                <input name="name" type="text" />
+                <label className="visually-hidden" htmlFor="name">
                   Имя канала
                 </label>
                 <div className="modal-btns">
