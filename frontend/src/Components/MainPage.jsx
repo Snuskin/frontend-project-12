@@ -7,7 +7,7 @@ import {
 import { resetMessagesReduser } from "../slices/messagesSlice";
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import AddChannelModal from "./Modals";
+import Modals from "./Modals";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/index.jsx";
 import { emitNewMessage } from "../sockets/emits";
@@ -160,9 +160,8 @@ const MainPage = () => {
     );
   };
   const handleSubmit = (e) => {
-    sendNewMessage(messageText, currentChannel);
     e.preventDefault();
-    setMessageText('')
+    sendNewMessage(messageText, currentChannel);
   };
   const openCtxtMenu = (e) => {
     return cn("rename-remove-channel-container", {
@@ -228,7 +227,7 @@ const MainPage = () => {
             </form>
           </div>
         </div>
-        <AddChannelModal />
+        <Modals />
       </div>
     </>
   );

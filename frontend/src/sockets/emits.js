@@ -5,7 +5,7 @@ import { socket } from './index';
 const showToaster = (status) => {
   switch (status) {
     case 'add':
-      toast.success(`Канал создан`, {
+      toast.success('Канал создан', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -17,7 +17,7 @@ const showToaster = (status) => {
       });
       break;
     case 'rename':
-      toast.success(`Канал переименован`, {
+      toast.success('Канал переименован', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -29,7 +29,7 @@ const showToaster = (status) => {
       });
       break;
     case 'remove':
-      toast.success(`Канал удалён`, {
+      toast.success('Канал удалён', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -41,7 +41,7 @@ const showToaster = (status) => {
       });
       break;
     case 'error':
-      toast.error(`Ошибка соединения`, {
+      toast.error('Ошибка соединения', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -67,18 +67,17 @@ const emitNewMessage = (message, activeChannel, username) => {
     });
 };
 
-const emitNewChannel = (name) =>
-  new Promise((resolve, reject) => {
-    socket.timeout(5000).emit('newChannel', { name }, (err, response) => {
-      if (!response || err) {
-        showToaster('error');
-        reject();
-      } else {
-        showToaster('add');
-        resolve(response.data.id);
-      }
-    });
+const emitNewChannel = (name) => new Promise((resolve, reject) => {
+  socket.timeout(5000).emit('newChannel', { name }, (err, response) => {
+    if (!response || err) {
+      showToaster('error');
+      reject();
+    } else {
+      showToaster('add');
+      resolve(response.data.id);
+    }
   });
+});
 
 const emitRemoveChannel = (extra) => {
   socket.timeout(5000).emit('removeChannel', { id: extra }, (err, response) => {
@@ -100,4 +99,6 @@ const emitRenameChannel = (id, name) => {
   });
 };
 
-export { emitNewMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel };
+export {
+  emitNewMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel,
+};
