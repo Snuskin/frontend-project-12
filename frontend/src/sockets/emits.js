@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return, no-console */
 import { toast } from 'react-toastify';
 import { socket } from './index';
-import store from "../slices/index";
-import { setCurrentChannel } from "../slices/channelsSlice";
+import store from '../slices/index';
+import { setCurrentChannel } from '../slices/channelsSlice';
 
 const showToaster = (status) => {
   switch (status) {
@@ -65,21 +65,22 @@ const emitNewMessage = (message, activeChannel, username) => {
     .emit('newMessage', { body: message, channelId: activeChannel, username }, (err, response) => {
       if (!response || err) {
         showToaster('error');
-      } 
+      }
     });
 };
 
-const emitNewChannel = (name) => new Promise((resolve, reject) => {
-  socket.timeout(5000).emit('newChannel', { name }, (err, response) => {
-    if (!response || err) {
-      showToaster('error');
-      reject();
-    } else {
-      showToaster('add');
-      resolve(response.data.id);
-    }
+const emitNewChannel = (name) =>
+  new Promise((resolve, reject) => {
+    socket.timeout(5000).emit('newChannel', { name }, (err, response) => {
+      if (!response || err) {
+        showToaster('error');
+        reject();
+      } else {
+        showToaster('add');
+        resolve(response.data.id);
+      }
+    });
   });
-}) 
 
 const emitRemoveChannel = (extra) => {
   socket.timeout(5000).emit('removeChannel', { id: extra }, (err, response) => {
@@ -97,8 +98,8 @@ const emitRenameChannel = (id, name) => {
       showToaster('error');
     } else {
       showToaster('rename');
-      console.log(response.data.id)
-      store.dispatch(setCurrentChannel(response.data.id))
+      console.log(response.data.id);
+      store.dispatch(setCurrentChannel(response.data.id));
     }
   });
 };

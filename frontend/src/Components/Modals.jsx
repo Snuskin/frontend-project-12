@@ -25,7 +25,8 @@ const Modal = () => {
     if (e.target.channelName.value.length > 2) {
       try {
      await emitNewChannel(filter.clean(e.target.channelName.value))
-     .then((id) => dispatch(setCurrentChannel(id)))
+     .then((id) => {
+      dispatch(setCurrentChannel(id))})
       } catch (error) {
         console.log(error);
       }

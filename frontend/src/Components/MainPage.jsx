@@ -31,7 +31,6 @@ const MainPage = () => {
     (state) => state.channels.currentChannelId
   );
   const [messageText, setMessageText] = useState("");
-  const [activeChannel, setActiveChannel] = useState("1");
   const [contextOpen, setContextOpen] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,7 +68,6 @@ const MainPage = () => {
   };
   const renderChangedChannel = (e) => {
     dispatch(setCurrentChannel(e.target.id));
-    setActiveChannel(e.target.id);
   };
 
   const renderInitChannels = () => {
@@ -161,7 +159,7 @@ const MainPage = () => {
     );
   };
   const handleSubmit = (e) => {
-    sendNewMessage(messageText, activeChannel);
+    sendNewMessage(messageText, currentChannel);
     e.preventDefault();
   };
   const openCtxtMenu = (e) => {
