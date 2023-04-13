@@ -99,6 +99,7 @@ const MainPage = () => {
                   style={{ borderRadius: "50%" }}
                 >
                   <img width="20" height="20" src={arrow}></img>{" "}
+                  <span className="visually-hidden">Управление каналом</span>
                 </button>
                 <div name={channel.id} className={openCtxtMenu(channel.id)}>
                   <a
@@ -198,7 +199,6 @@ const MainPage = () => {
               >
                 +
               </button>
-              <span className="visually-hidden">Управление каналом</span>
             </div>
             {renderInitChannels()}
           </div>
