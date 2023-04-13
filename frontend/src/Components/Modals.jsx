@@ -35,9 +35,9 @@ const Modal = () => {
 
   const renderRenamedChannel = (e, id) => {
     e.preventDefault();
-    if (e.target.channelName.value.length > 2) {
+    if (e.target.name.value.length > 2) {
       try {
-        emitRenameChannel(id, filter.clean(e.target.channelName.value));
+        emitRenameChannel(id, filter.clean(e.target.name.value));
       } catch (error) {
         console.log(error);
       }

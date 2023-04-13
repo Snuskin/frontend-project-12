@@ -98,8 +98,6 @@ const emitRenameChannel = (id, name) => {
       showToaster('error');
     } else {
       showToaster('rename');
-      console.log(response.data.id);
-      store.dispatch(setCurrentChannel(response.data.id));
     }
   });
 };
